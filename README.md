@@ -35,24 +35,16 @@
 
 ## 安装
 
-### 1. 下载
-将本仓库整个文件夹放入 AstrBot 的插件目录：
-```
-data/plugins/astrbot-web-search/
-```
+### 插件市场安装（推荐）
+WebUI → 插件管理 → 搜索「AstrBot智能联网搜索」→ 点击安装。依赖自动处理，即装即用。
 
-### 2. 安装依赖
-```bash
-pip install httpx>=0.27.0 openai>=1.30.0 ddgs>=6.0.0 pyyaml>=6.0
-```
-或者：
-```bash
-pip install -r requirements.txt
-```
-
-### 3. 启用插件
-- 重启 AstrBot，或
-- WebUI → 插件管理 → 找到「AstrBot智能联网搜索」→ 启用
+### 手动安装
+1. 将本仓库放入 `data/plugins/astrbot-web-search/`
+2. 安装依赖：
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. 重启 AstrBot 或在 WebUI 启用插件
 
 ### 4. 配置 LLM（推荐）
 插件用 LLM 做搜索词优化和追问判断。虽然不配也能搜（DDG 免费），但配置后效果更好。
