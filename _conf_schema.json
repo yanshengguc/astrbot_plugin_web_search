@@ -1,0 +1,203 @@
+{
+  "llm": {
+    "description": "LLM 大模型配置",
+    "type": "object",
+    "hint": "选择并配置你要使用的 AI 模型",
+    "items": {
+      "llm_provider": {
+        "description": "服务商",
+        "type": "string",
+        "hint": "OpenAI 兼容 = 支持 DeepSeek / Ollama / 硅基流动 / 豆包 等所有兼容接口",
+        "default": "openai",
+        "options": ["openai", "anthropic", "gemini"]
+      },
+      "llm_api_key": {
+        "description": "API Key",
+        "type": "string",
+        "hint": "服务商的 API Key, OpenAI / DeepSeek 等填这里",
+        "default": ""
+      },
+      "llm_base_url": {
+        "description": "接口地址",
+        "type": "string",
+        "hint": "OpenAI 兼容接口地址, DeepSeek 填 https://api.deepseek.com/v1",
+        "default": "https://api.openai.com/v1"
+      },
+      "llm_model": {
+        "description": "模型名",
+        "type": "string",
+        "hint": "如 gpt-4o / deepseek-chat / MiMo-v2.5",
+        "default": "gpt-4o"
+      }
+    }
+  },
+  "alt_llm": {
+    "description": "备用 LLM 配置 (选填)",
+    "type": "object",
+    "hint": "如果你用的是 Anthropic Claude 或 Google Gemini, 在这里填 Key. 用 OpenAI 兼容的不用管",
+    "items": {
+      "anthropic_api_key": {
+        "description": "Anthropic API Key",
+        "type": "string",
+        "hint": "Claude 的 API Key, 选 anthropic 时生效",
+        "default": ""
+      },
+      "anthropic_model": {
+        "description": "Claude 模型名",
+        "type": "string",
+        "hint": "如 claude-sonnet-4-6 / claude-opus-4-7",
+        "default": "claude-sonnet-4-6"
+      },
+      "gemini_api_key": {
+        "description": "Gemini API Key",
+        "type": "string",
+        "hint": "Google AI Studio 获取的 Key, 选 gemini 时生效",
+        "default": ""
+      },
+      "gemini_model": {
+        "description": "Gemini 模型名",
+        "type": "string",
+        "hint": "如 gemini-2.0-flash / gemini-2.5-pro",
+        "default": "gemini-2.0-flash"
+      }
+    }
+  },
+  "search": {
+    "description": "搜索引擎配置",
+    "type": "object",
+    "hint": "DuckDuckGo 免费无需 Key, Bing/Google 需要填 API Key",
+    "items": {
+      "search_engine": {
+        "description": "搜索引擎",
+        "type": "string",
+        "hint": "推荐用 DuckDuckGo (免费无需 Key), 失败了自动切备用",
+        "default": "duckduckgo",
+        "options": ["duckduckgo", "bing", "google"]
+      },
+      "fallback_chain": {
+        "description": "回退链路",
+        "type": "string",
+        "hint": "主引擎失败时的备用顺序, 逗号分隔, 如: bing,google (DuckDuckGo 必定可用无需配 Key)",
+        "default": "duckduckgo,bing,google"
+      },
+      "max_results": {
+        "description": "搜索结果数",
+        "type": "int",
+        "hint": "每次搜索返回几条结果给 LLM 总结",
+        "default": 5,
+        "slider": {"min": 1, "max": 10, "step": 1}
+      },
+      "bing_api_key": {
+        "description": "Bing API Key (选填)",
+        "type": "string",
+        "hint": "Azure Bing Search v7 的 Key",
+        "default": ""
+      },
+      "google_api_key": {
+        "description": "Google API Key (选填)",
+        "type": "string",
+        "hint": "Google Cloud Custom Search 的 API Key",
+        "default": ""
+      },
+      "google_cse_id": {
+        "description": "Google CSE ID (选填)",
+        "type": "string",
+        "hint": "Google Programmable Search Engine ID",
+        "default": ""
+      }
+    }
+  },
+  "features": {
+    "description": "功能开关",
+    "type": "object",
+    "hint": "控制搜索触发方式和交互体验",
+    "items": {
+      "enable_command": {
+        "description": "/search 指令",
+        "type": "bool",
+        "hint": "开启后 /search 关键词 可主动唤起搜索",
+        "default": true
+      },
+      "enable_auto_search": {
+        "description": "明确搜索请求触发",
+        "type": "bool",
+        "hint": "消息含 帮我搜/查一下 等自然句式时触发, 误触发率低",
+        "default": true
+      },
+      "enable_auto_detect": {
+        "description": "隐含问题自动搜索",
+        "type": "bool",
+        "hint": "消息涉及实时新闻/天气/股价等 AI 可能不知道的实时信息时自动搜索",
+        "default": true
+      },
+      "enable_llm_judge": {
+        "description": "LLM 智能判断 (费 token)",
+        "type": "bool",
+        "hint": "每条消息都用 LLM 判断是否搜索, 最智能但烧 token",
+        "default": false
+      },
+      "enable_followup": {
+        "description": "多轮追问",
+        "type": "bool",
+        "hint": "搜索后可以继续追问细节, 无需重新搜索",
+        "default": true
+      },
+      "auto_detect_min_len": {
+        "description": "自动搜索最小长度",
+        "type": "int",
+        "hint": "消息小于此长度的不触发自动搜索, 减少短消息误触发",
+        "default": 5,
+        "slider": {"min": 3, "max": 50, "step": 1}
+      },
+      "auto_detect_cooldown": {
+        "description": "自动搜索冷却 (秒)",
+        "type": "int",
+        "hint": "同一会话两次自动搜索的最小间隔, 0 不限制",
+        "default": 0,
+        "slider": {"min": 0, "max": 300, "step": 15}
+      }
+    }
+  },
+  "advanced": {
+    "description": "高级设置",
+    "type": "object",
+    "hint": "一般不用改, 调整限流和缓存参数",
+    "items": {
+      "search_timeout": {
+        "description": "搜索超时 (秒)",
+        "type": "int",
+        "hint": "单次搜索最大等待时间",
+        "default": 15,
+        "slider": {"min": 5, "max": 60, "step": 5}
+      },
+      "cache_ttl": {
+        "description": "缓存时间 (秒)",
+        "type": "int",
+        "hint": "相同搜索词在缓存期内的结果会复用, 0 表示不缓存",
+        "default": 300,
+        "slider": {"min": 0, "max": 3600, "step": 60}
+      },
+      "rate_limit_max": {
+        "description": "限流次数",
+        "type": "int",
+        "hint": "每个窗口期最多允许的搜索次数",
+        "default": 8,
+        "slider": {"min": 1, "max": 30, "step": 1}
+      },
+      "rate_limit_window": {
+        "description": "限流窗口 (秒)",
+        "type": "int",
+        "hint": "限流的计时窗口, 窗口内最多搜索 rate_limit_max 次",
+        "default": 60,
+        "slider": {"min": 10, "max": 600, "step": 10}
+      },
+      "followup_ttl": {
+        "description": "追问上下文 (秒)",
+        "type": "int",
+        "hint": "搜索结束后多久内的消息会被识别为追问, 0 关闭追问",
+        "default": 600,
+        "slider": {"min": 0, "max": 3600, "step": 60}
+      }
+    }
+  }
+}

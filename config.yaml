@@ -1,0 +1,41 @@
+# ── 搜索引擎 ──
+search_engine: duckduckgo          # 可选: duckduckgo / bing / google
+fallback_chain:
+  - duckduckgo
+  - bing
+  - google
+bing_api_key: ""                    # Bing 需要 Azure API Key
+google_api_key: ""                  # Google 需要 API Key + CSE ID
+google_cse_id: ""
+
+# ── LLM 提供商 ──
+llm_provider: openai               # 可选: openai / anthropic / gemini
+
+# OpenAI 兼容接口 (DeepSeek / Ollama / 硅基流动 等)
+llm_base_url: "https://api.openai.com/v1"
+llm_api_key: ""                     # 填入你的 API Key
+llm_model: "gpt-4o"
+
+# Anthropic Claude
+anthropic_api_key: ""
+anthropic_model: "claude-sonnet-4-6"
+
+# Google Gemini
+gemini_api_key: ""
+gemini_model: "gemini-2.0-flash"
+
+# ── 功能开关 ──
+enable_command: true               # /search 指令
+enable_auto_search: true            # 关键词触发 (搜索/查一下 等)
+enable_llm_judge: false             # LLM 自动判断 (费 token，建议关)
+enable_followup: true               # 多轮追问
+
+# ── 参数 ──
+max_results: 5                      # 每次搜索返回条数
+search_timeout: 15                  # 搜索超时秒数
+cache_ttl: 300                      # 缓存有效期 (秒)
+rate_limit_max: 8                   # 每窗口最大搜索次数
+rate_limit_window: 60               # 限流窗口 (秒)
+followup_ttl: 600                   # 追问上下文有效期 (秒)
+auto_detect_min_len: 5              # 自动搜索触发最小消息长度
+auto_detect_cooldown: 0             # 自动搜索同一会话冷却秒数，0 不限制

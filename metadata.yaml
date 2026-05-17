@@ -1,0 +1,23 @@
+name: astrbot_plugin_web_search
+author: yansheng
+display_name: AstrBot智能联网搜索
+short_desc: 为AstrBot提供强大的联网搜索能力，支持多引擎回退、LLM搜索词优化、智能总结、多轮追问
+desc: |
+  AstrBot智能联网搜索插件，支持以下功能：
+  - 多搜索引擎：DuckDuckGo（免费无需Key）、Bing、Google Custom Search，自动回退
+  - LLM搜索词优化：搜索前用大模型将口语化问题改写为精准搜索词
+  - 智能总结：搜索结果交给AstrBot主LLM与人格化回复
+  - 三种触发：/search指令、自然句式（帮我搜/查一下）、全自动检测
+  - 多轮追问、搜索缓存、频率限制、可调触发阈值
+  - 支持 OpenAI兼容/Anthropic Claude/Google Gemini 三种API
+version: 1.3.0
+support_platforms:
+  - aiocqhttp
+  - qq_official
+  - telegram
+  - wecom
+  - lark
+  - dingtalk
+  - discord
+  - kook
+astrbot_version: ">=4.0"
