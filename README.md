@@ -205,3 +205,9 @@ A: 调大 `auto_detect_min_len`（如 15）和设置 `auto_detect_cooldown`（�
 
 **Q: 搜索结果不相关？**
 A: 确保已配置 LLM Key，插件会自动优化搜索词。或者调大 `max_results`。
+
+---
+
+## 作者
+
+QQ：2391859666 — 如有优化建议或使用问题欢迎交流
